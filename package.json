@@ -1,0 +1,37 @@
+{
+  "name": "fantasy-land-talk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordfjord/fantasy-land-talk.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nordfjord/fantasy-land-talk/issues"
+  },
+  "homepage": "https://github.com/nordfjord/fantasy-land-talk#readme",
+  "dependencies": {
+    "data.maybe": "^1.2.2",
+    "fluture": "^8.0.2",
+    "flyd": "^0.2.6",
+    "nodemon": "^1.15.1",
+    "ramda": "^0.25.0",
+    "sanctuary": "^0.14.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.0",
+    "prettier": "^1.10.2",
+    "rollup": "^0.56.2",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-commonjs": "^8.3.0",
+    "rollup-plugin-node-resolve": "^3.0.3",
+    "rollup-watch": "^4.3.1"
+  }
+}

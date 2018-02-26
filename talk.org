@@ -1,0 +1,105 @@
+#+TITLE: Fantasy Land: FP in JavaScript
+#+AUTHOR: Einar Norðfjörð
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+OPTIONS: toc:nil
+#+OPTIONS: timestamp:nil
+#+OPTIONS: reveal_slide_number:nil
+
+* What is Functional Programming
+1. Functions are values
+2. The logical result of supplying to few arguments to a function, is another function
+3. Functions can be composed together to create new functions
+
+* Promises 
+** What is a promise?
+It's the javascripty way of representing a future value
+** then
+#+ATTR_REVEAL: :frag (appear)
+- Monad
+  #+BEGIN_SRC 
+  Promise.then :: Promise a ~> (a -> Promise b) -> Promise b
+  #+END_SRC
+- Functor
+  #+BEGIN_SRC 
+  Promise.then :: Promise a ~> (a -> b) -> Promise b
+  #+END_SRC
+** The epic issue
+[[./fantasy-land-issue.png]]
+
+* Fantasy land
+A specification for the interoperability of algebraic datatypes in JavaScript
+[[./fantasy-land-deps.png]]
+
+** Yeah but why?
+Having a specification like fantasy land allows us to create generic utilities for working with ADTs.
+
+You can easily switch out different implementations that comply to the spec.
+
+** Some libraries
+- Ramda :: A practical functional library for JavaScript programmers
+- Sanctuary :: A refuge from unsafe JavaScript
+- Fluture :: 🦋FantasyLand compliant (monadic) alternative to Promises
+- Flyd :: Monadic Reactive Streams
+- data.maybe :: Maybe implementation
+
+* Ramda
+Ramda aims to be your functional toolbelt in javascript.
+
+1. All functions are curried by default (no monkey butts)
+2. All functions can dispatch to fantasy-land methods given correct input
+3. Has a lens implementation
+
+#+BEGIN_SRC javascript
+import {pipe, map, multiply, chain} from 'ramda'
+
+pipe(
+  map(multiply(2)),
+  chain(num => [num, num / 2])
+)([1,2,3])
+#+END_SRC
+
+** The problem
+It doesn't go far enough as a toolbelt.
+
+#+BEGIN_SRC javascript
+import {find, propEq} from 'ramda'
+find(propEq('name', 'Einar'), []) // null
+#+END_SRC
+
+Let's take a look at sanctuary
+
+* Some actual code @ Activity Stream
+We have a css utility library that allows us to conditionally load a theme
+
+#+BEGIN_SRC javascript
+const themePath = fetchUserThemePath() 
+const basePath = Future.of('styles')
+const isGlobal = anyPass([startsWith('/'), startsWith('http')])
+const cssPath = Future.of(basePath => themePath => isGlobal(themePath)
+  ? themePath
+  : basePath + themePath
+)
+  .ap(basePath)
+  .ap(themePath)
+
+cssPath.fork(console.error, addCSSFilesToDocument);
+#+END_SRC
+
+** Now we need to make it dynamically update
+#+BEGIN_SRC javascript
+const themePath = stream('_default')
+const basePath = stream('styles')
+const isGlobal = anyPass([startsWith('/'), startsWith('http')])
+const cssPath = stream(basePath => themePath => isGlobal(themePath)
+  ? themePath
+  : basePath + themePath
+)
+  .ap(basePath)
+  .ap(themePath)
+
+fetchUserThemePath.fork(console.error, themePath)
+
+on(addCSSFilesToDocument, cssPath)
+#+END_SRC
+
+Just by changing the applicative implementation and some mild boilerplate we now have live updates.
