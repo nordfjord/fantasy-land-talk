@@ -30,182 +30,246 @@
 </section>
 
 <section>
-<section id="slide-orgeed59a5">
-<h2 id="orgeed59a5"><span class="section-number-2">1</span> What is Functional Programming</h2>
+<section id="slide-org3a9942c">
+<h2 id="org3a9942c">Who am I?</h2>
+<ul>
+<li>Lead Front End Developer @ Activity Stream</li>
+<li>Contributor to some OSS functional JS libraries</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7277618">
+<h2 id="org7277618">What is Functional Programming?</h2>
+<p>
+The radical notion that
+</p>
 <ol>
-<li>Functions are values</li>
-<li>The logical result of supplying to few arguments to a function, is another function</li>
-<li>Functions can be composed together to create new functions</li>
+<li class="fragment appear">Functions are values</li>
+<li class="fragment appear">The logical result of supplying to few arguments to a function, is another function</li>
+<li class="fragment appear">Functions can be composed together to create new functions</li>
 
 </ol>
 
 </section>
+<section id="slide-org53378dc">
+<h3 id="org53378dc">Functions are values</h3>
+<div class="org-src-container">
+
+<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">doubleList</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">list</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">result</span> = <span style="color: #bc6ec5;">[]</span>;
+
+  <span style="color: #4f97d7; font-weight: bold;">for</span> <span style="color: #bc6ec5;">(</span><span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">i</span> = <span style="color: #a45bad;">0</span>; i &lt; list.length; ++i<span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    result.push<span style="color: #2d9574;">(</span>list<span style="color: #67b11d;">[</span>i<span style="color: #67b11d;">]</span> * <span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+
+  <span style="color: #4f97d7; font-weight: bold;">return</span> result;
+<span style="color: #4f97d7;">}</span>
+
+doubleList<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">[2,4,6]</span>
+</pre>
+</div>
+
 </section>
-<section>
-<section id="slide-orga8c7554">
-<h2 id="orga8c7554"><span class="section-number-2">2</span> Promises</h2>
-<div class="outline-text-2" id="text-2">
+<section >
+
+<div class="org-src-container">
+
+<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #ce537a; font-weight: bold;">double</span> = x =&gt; x * <span style="color: #a45bad;">2</span>
+
+result = <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span><span style="color: #4f97d7;">]</span>.map<span style="color: #4f97d7;">(</span><span style="color: #ce537a; font-weight: bold;">double</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">[2,4,6]</span>
+</pre>
 </div>
 </section>
-<section id="slide-org12eb598">
-<h3 id="org12eb598"><span class="section-number-3">2.1</span> What is a promise?</h3>
+<section id="slide-orgebfdd59">
+<h3 id="orgebfdd59">The logical result of supplying too few arguments to a function is another function</h3>
+<div class="org-src-container">
+
+<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">multiply</span> = x =&gt; y =&gt; x * y
+
+result = <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span><span style="color: #4f97d7;">]</span>.map<span style="color: #4f97d7;">(</span>multiply<span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">2</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">[2, 4, 6]</span>
+</pre>
+</div>
+
+</section>
+<section >
 <p>
-It's the javascripty way of representing a future value
+This enables a point free style of programming
 </p>
-</section>
-<section id="slide-org3a8329a">
-<h3 id="org3a8329a"><span class="section-number-3">2.2</span> then</h3>
-<ul>
-<li class="fragment appear"><p>
-Monad
-</p>
-<pre  class="example">
-Promise.then :: Promise a ~&gt; (a -&gt; Promise b) -&gt; Promise b
-</pre></li>
-<li class="fragment appear"><p>
-Functor
-</p>
-<pre  class="example">
-Promise.then :: Promise a ~&gt; (a -&gt; b) -&gt; Promise b
-</pre></li>
+<div class="org-src-container">
 
-</ul>
-</section>
-<section id="slide-org36d0a3d">
-<h3 id="org36d0a3d"><span class="section-number-3">2.3</span> The epic issue</h3>
+<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">domain_from_email</span> = pipe<span style="color: #4f97d7;">(</span>
+  Maybe,
+  map<span style="color: #bc6ec5;">(</span>pipe<span style="color: #2d9574;">(</span>toLower, split<span style="color: #67b11d;">(</span><span style="color: #2d9574;">'@'</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>,
+  chain<span style="color: #bc6ec5;">(</span>head<span style="color: #bc6ec5;">)</span>,
+  map<span style="color: #bc6ec5;">(</span>pipe<span style="color: #2d9574;">(</span>
+    replace<span style="color: #67b11d;">(</span><span style="color: #2d9574;">/\.{com,org}$/</span>, <span style="color: #2d9574;">''</span><span style="color: #67b11d;">)</span>,
+    split<span style="color: #67b11d;">(</span><span style="color: #2d9574;">'.'</span><span style="color: #67b11d;">)</span>,
+    reverse,
+    join<span style="color: #67b11d;">(</span><span style="color: #2d9574;">'_'</span><span style="color: #67b11d;">)</span>,
+  <span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>,
+  getOrElse<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">''</span><span style="color: #bc6ec5;">)</span>
+<span style="color: #4f97d7;">)</span>
 
-<div class="figure">
-<p><img src="./fantasy-land-issue.png" alt="fantasy-land-issue.png" />
-</p>
+domain_from_email<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'einar@example.net'</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">"net_example"</span>
+domain_from_email<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'einar@example.com'</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">"example"</span>
+</pre>
 </div>
+
+</section>
+<section >
+<p>
+Or a dot chaining style
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">domain_from_email</span> = email =&gt; Maybe<span style="color: #4f97d7;">(</span>email<span style="color: #4f97d7;">)</span>
+  .map<span style="color: #4f97d7;">(</span>x =&gt; x.toLowerCase<span style="color: #bc6ec5;">()</span>.split<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'@'</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+  .chain<span style="color: #4f97d7;">(</span>split =&gt; Maybe<span style="color: #bc6ec5;">(</span>split<span style="color: #2d9574;">[</span><span style="color: #a45bad;">0</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+  .map<span style="color: #4f97d7;">(</span>domain =&gt; domain
+    .replace<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">/\.{com,org}/</span>, <span style="color: #2d9574;">''</span><span style="color: #bc6ec5;">)</span>
+    .split<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'.'</span><span style="color: #bc6ec5;">)</span>
+    .reverse<span style="color: #bc6ec5;">()</span>
+    .join<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'_'</span><span style="color: #bc6ec5;">)</span>
+  <span style="color: #4f97d7;">)</span>
+  .getOrElse<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">''</span><span style="color: #4f97d7;">)</span>
+
+domain_from_email<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'einar@example.net'</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">"net_example"</span>
+domain_from_email<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'einar@example.com'</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">"example"</span>
+</pre>
+</div>
+</section>
+<section id="slide-org19070da">
+<h3 id="org19070da">Functions can be composed together to create new functions</h3>
+<p>
+<code>pipe</code> does left to right composition
+</p>
+
+<p>
+<code>compose</code> does right to left composition
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-javascript"><span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">List Number -&gt; String</span>
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">format_RangedFilter</span> = compose<span style="color: #4f97d7;">(</span>join<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">' - '</span><span style="color: #bc6ec5;">)</span>, map<span style="color: #bc6ec5;">(</span>number_format<span style="color: #2d9574;">(</span><span style="color: #2d9574;">',.0f'</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+
+format_RangedFilter<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RangedFilter</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span>, <span style="color: #a45bad;">100</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">"0 - 100"</span>
+
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">format_RangedFilter</span> = pipe<span style="color: #4f97d7;">(</span>
+  map<span style="color: #bc6ec5;">(</span>number_format<span style="color: #2d9574;">(</span><span style="color: #2d9574;">',.0f'</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>,
+  join<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">' - '</span><span style="color: #bc6ec5;">)</span>
+<span style="color: #4f97d7;">)</span>
+
+format_RangedFilter<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">RangedFilter</span><span style="color: #bc6ec5;">(</span><span style="color: #a45bad;">0</span>, <span style="color: #a45bad;">100</span><span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">"0 - 100"</span>
+</pre>
+</div>
+
+<p>
+Rule of thumb: Use <code>pipe</code> when you need to do multi line composition. Use <code>compose</code> for single line compositions.
+</p>
 
 </section>
 </section>
 <section>
-<section id="slide-org2f98d08">
-<h2 id="org2f98d08"><span class="section-number-2">3</span> Fantasy land</h2>
+<section id="slide-org891a264">
+<h2 id="org891a264">Fantasy land</h2>
 <p>
 A specification for the interoperability of algebraic datatypes in JavaScript
 <img src="./fantasy-land-deps.png" alt="fantasy-land-deps.png" />
 </p>
+</section>
+<section id="slide-org1360ea5">
+<h3 id="org1360ea5">How it came about</h3>
+<ol>
+<li class="fragment appear">Promises</li>
+<li class="fragment appear">FP programmers</li>
+<li class="fragment appear">Domenic <img src="./fantasy-land-issue.png" alt="fantasy-land-issue.png" /></li>
+
+</ol>
+</section>
+<section id="slide-org98b337a">
+<h3 id="org98b337a">Yeah but why?</h3>
+<ol>
+<li>Everything has the same interface (Futures, Streams, Lists, Maybe, Either, e.t.c.)</li>
+<li>Same interface for synchronous and asynchronous values</li>
+<li>The laws of the methods are explicit</li>
+
+</ol>
 
 </section>
-<section id="slide-orgdcd6666">
-<h3 id="orgdcd6666"><span class="section-number-3">3.1</span> Yeah but why?</h3>
+</section>
+<section>
+<section id="slide-org60e6b03">
+<h2 id="org60e6b03">Demo Time: Implementing the identity monad</h2>
+</section>
+</section>
+<section>
+<section id="slide-orgd37e87e">
+<h2 id="orgd37e87e">Monad</h2>
+<div class="outline-text-2" id="text-orgd37e87e">
+</div>
+</section>
+<section id="slide-org9da1d1e">
+<h3 id="org9da1d1e">Functor</h3>
 <p>
-Having a specification like fantasy land allows us to create generic utilities for working with ADTs.
+Anything you can map.
+</p>
+<pre  class="example">
+map :: Functor f =&gt; f a ~&gt; (a -&gt; b) -&gt; f b
+</pre>
+
+</section>
+<section id="slide-org2a4c901">
+<h3 id="org2a4c901">Apply</h3>
+<p>
+A functor you can ap values into.
 </p>
 
 <p>
-You can easily switch out different implementations that comply to the spec.
+Helps teach functions how to work with your values.
 </p>
 
+<pre  class="example">
+ap :: Apply f =&gt; f (a -&gt; b) ~&gt; f a -&gt; f b
+</pre>
+
 </section>
-<section id="slide-org90a7056">
-<h3 id="org90a7056"><span class="section-number-3">3.2</span> Some libraries</h3>
+<section id="slide-org4e459ff">
+<h3 id="org4e459ff">Applicative</h3>
+<p>
+An Apply with an of method.
+</p>
+<pre  class="example">
+of :: Applicative f =&gt; a -&gt; f a
+</pre>
+
+</section>
+<section id="slide-orgbdca6c9">
+<h3 id="orgbdca6c9">Chain</h3>
+<p>
+A functor that can be flatmapped
+</p>
+<pre  class="example">
+chain :: Chain m =&gt; m a ~&gt; (a -&gt; m b) -&gt; m b
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org6ae406c">
+<h2 id="org6ae406c">Some libraries</h2>
 <dl>
 <dt>Ramda</dt><dd>A practical functional library for JavaScript programmers</dd>
 <dt>Sanctuary</dt><dd>A refuge from unsafe JavaScript</dd>
-<dt>Fluture</dt><dd>🦋FantasyLand compliant (monadic) alternative to Promises</dd>
+<dt>Fluture🦋</dt><dd>FantasyLand compliant (monadic) alternative to Promises</dd>
 <dt>Flyd</dt><dd>Monadic Reactive Streams</dd>
 <dt>data.maybe</dt><dd>Maybe implementation</dd>
 
 </dl>
-
-</section>
-</section>
-<section>
-<section id="slide-org84ef0d1">
-<h2 id="org84ef0d1"><span class="section-number-2">4</span> Ramda</h2>
-<p>
-Ramda aims to be your functional toolbelt in javascript.
-</p>
-
-<ol>
-<li>All functions are curried by default (no monkey butts)</li>
-<li>All functions can dispatch to fantasy-land methods given correct input</li>
-<li>Has a lens implementation</li>
-
-</ol>
-
-<div class="org-src-container">
-
-<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">import</span> <span style="color: #4f97d7;">{</span>pipe, map, multiply, chain<span style="color: #4f97d7;">}</span> from <span style="color: #2d9574;">'ramda'</span>
-
-pipe<span style="color: #4f97d7;">(</span>
-  map<span style="color: #bc6ec5;">(</span>multiply<span style="color: #2d9574;">(</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span>,
-  chain<span style="color: #bc6ec5;">(</span>num =&gt; <span style="color: #2d9574;">[</span>num, num / <span style="color: #a45bad;">2</span><span style="color: #2d9574;">]</span><span style="color: #bc6ec5;">)</span>
-<span style="color: #4f97d7;">)(</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>,<span style="color: #a45bad;">2</span>,<span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
-</pre>
-</div>
-
-</section>
-<section id="slide-org7eecd88">
-<h3 id="org7eecd88"><span class="section-number-3">4.1</span> The problem</h3>
-<p>
-It doesn't go far enough as a toolbelt.
-</p>
-
-<div class="org-src-container">
-
-<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">import</span> <span style="color: #4f97d7;">{</span>find, propEq<span style="color: #4f97d7;">}</span> from <span style="color: #2d9574;">'ramda'</span>
-find<span style="color: #4f97d7;">(</span>propEq<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'name'</span>, <span style="color: #2d9574;">'Einar'</span><span style="color: #bc6ec5;">)</span>, <span style="color: #bc6ec5;">[]</span><span style="color: #4f97d7;">)</span> <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">null</span>
-</pre>
-</div>
-
-<p>
-Let's take a look at sanctuary
-</p>
-
-</section>
-</section>
-<section>
-<section id="slide-org0f71435">
-<h2 id="org0f71435"><span class="section-number-2">5</span> Some actual code @ Activity Stream</h2>
-<p>
-We have a css utility library that allows us to conditionally load a theme
-</p>
-
-<div class="org-src-container">
-
-<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">themePath</span> = fetchUserThemePath<span style="color: #4f97d7;">()</span> 
-<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">basePath</span> = Future.of<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'styles'</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">isGlobal</span> = anyPass<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span>startsWith<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'/'</span><span style="color: #2d9574;">)</span>, startsWith<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'http'</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">cssPath</span> = Future.of<span style="color: #4f97d7;">(</span>basePath =&gt; themePath =&gt; isGlobal<span style="color: #bc6ec5;">(</span>themePath<span style="color: #bc6ec5;">)</span>
-  ? themePath
-  : basePath + themePath
-<span style="color: #4f97d7;">)</span>
-  .ap<span style="color: #4f97d7;">(</span>basePath<span style="color: #4f97d7;">)</span>
-  .ap<span style="color: #4f97d7;">(</span>themePath<span style="color: #4f97d7;">)</span>
-
-cssPath.fork<span style="color: #4f97d7;">(</span>console.error, addCSSFilesToDocument<span style="color: #4f97d7;">)</span>;
-</pre>
-</div>
-
-</section>
-<section id="slide-org41a371a">
-<h3 id="org41a371a"><span class="section-number-3">5.1</span> Now we need to make it dynamically update</h3>
-<div class="org-src-container">
-
-<pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">themePath</span> = stream<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'_default'</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">basePath</span> = stream<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'styles'</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">isGlobal</span> = anyPass<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span>startsWith<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'/'</span><span style="color: #2d9574;">)</span>, startsWith<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'http'</span><span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
-<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">cssPath</span> = stream<span style="color: #4f97d7;">(</span>basePath =&gt; themePath =&gt; isGlobal<span style="color: #bc6ec5;">(</span>themePath<span style="color: #bc6ec5;">)</span>
-  ? themePath
-  : basePath + themePath
-<span style="color: #4f97d7;">)</span>
-  .ap<span style="color: #4f97d7;">(</span>basePath<span style="color: #4f97d7;">)</span>
-  .ap<span style="color: #4f97d7;">(</span>themePath<span style="color: #4f97d7;">)</span>
-
-fetchUserThemePath.fork<span style="color: #4f97d7;">(</span>console.error, themePath<span style="color: #4f97d7;">)</span>
-
-on<span style="color: #4f97d7;">(</span>addCSSFilesToDocument, cssPath<span style="color: #4f97d7;">)</span>
-</pre>
-</div>
-
-<p>
-Just by changing the applicative implementation and some mild boilerplate we now have live updates.
-</p>
 </section>
 </section>
 </div>

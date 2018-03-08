@@ -2,104 +2,155 @@
 #+AUTHOR: Einar Norðfjörð
 #+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+OPTIONS: toc:nil
+#+OPTIONS: num:nil
 #+OPTIONS: timestamp:nil
 #+OPTIONS: reveal_slide_number:nil
 
-* What is Functional Programming
+* Who am I?
+- Lead Front End Developer @ Activity Stream
+- Contributor to some OSS functional JS libraries
+
+* What is Functional Programming?
+The radical notion that
+#+ATTR_REVEAL: :frag (appear)
 1. Functions are values
 2. The logical result of supplying to few arguments to a function, is another function
 3. Functions can be composed together to create new functions
 
-* Promises 
-** What is a promise?
-It's the javascripty way of representing a future value
-** then
-#+ATTR_REVEAL: :frag (appear)
-- Monad
-  #+BEGIN_SRC 
-  Promise.then :: Promise a ~> (a -> Promise b) -> Promise b
-  #+END_SRC
-- Functor
-  #+BEGIN_SRC 
-  Promise.then :: Promise a ~> (a -> b) -> Promise b
-  #+END_SRC
-** The epic issue
-[[./fantasy-land-issue.png]]
+** Functions are values
+#+BEGIN_SRC javascript
+function doubleList(list) {
+  const result = [];
+
+  for (let i = 0; i < list.length; ++i) {
+    result.push(list[i] * 2);
+  }
+
+  return result;
+}
+
+doubleList([1, 2, 3]) // [2,4,6]
+#+END_SRC
+
+#+REVEAL: split
+
+#+BEGIN_SRC javascript
+const double = x => x * 2
+
+result = [1, 2, 3].map(double) // [2,4,6]
+#+END_SRC
+** The logical result of supplying too few arguments to a function is another function
+#+BEGIN_SRC javascript
+const multiply = x => y => x * y
+
+result = [1, 2, 3].map(multiply(2)) // [2, 4, 6]
+#+END_SRC
+
+#+REVEAL: split
+This enables a point free style of programming
+#+BEGIN_SRC javascript
+const domain_from_email = pipe(
+  Maybe,
+  map(pipe(toLower, split('@'))),
+  chain(head),
+  map(pipe(
+    replace(/\.{com,org}$/, ''),
+    split('.'),
+    reverse,
+    join('_'),
+  )),
+  getOrElse('')
+)
+
+domain_from_email('einar@example.net') // "net_example"
+domain_from_email('einar@example.com') // "example"
+#+END_SRC
+
+#+REVEAL: split
+Or a dot chaining style
+
+#+BEGIN_SRC javascript
+const domain_from_email = email => Maybe(email)
+  .map(x => x.toLowerCase().split('@'))
+  .chain(split => Maybe(split[0]))
+  .map(domain => domain
+    .replace(/\.{com,org}/, '')
+    .split('.')
+    .reverse()
+    .join('_')
+  )
+  .getOrElse('')
+
+domain_from_email('einar@example.net') // "net_example"
+domain_from_email('einar@example.com') // "example"
+#+END_SRC
+** Functions can be composed together to create new functions
+~pipe~ does left to right composition
+
+~compose~ does right to left composition
+
+#+BEGIN_SRC javascript
+// List Number -> String
+const format_RangedFilter = compose(join(' - '), map(number_format(',.0f')))
+
+format_RangedFilter(new RangedFilter(0, 100)) // "0 - 100"
+
+const format_RangedFilter = pipe(
+  map(number_format(',.0f')),
+  join(' - ')
+)
+
+format_RangedFilter(new RangedFilter(0, 100)) // "0 - 100"
+#+END_SRC
+
+Rule of thumb: Use ~pipe~ when you need to do multi line composition. Use ~compose~ for single line compositions.
 
 * Fantasy land
 A specification for the interoperability of algebraic datatypes in JavaScript
 [[./fantasy-land-deps.png]]
-
+** How it came about
+#+ATTR_REVEAL: :frag (appear)
+1. Promises
+2. FP programmers
+3. Domenic [[./fantasy-land-issue.png]]
 ** Yeah but why?
-Having a specification like fantasy land allows us to create generic utilities for working with ADTs.
+1. Everything has the same interface (Futures, Streams, Lists, Maybe, Either, e.t.c.)
+2. Same interface for synchronous and asynchronous values
+3. The laws of the methods are explicit
 
-You can easily switch out different implementations that comply to the spec.
+* Demo Time: Implementing the identity monad
+* Monad
+** Functor
+Anything you can map.
+#+BEGIN_SRC
+map :: Functor f => f a ~> (a -> b) -> f b
+#+END_SRC
 
-** Some libraries
+** Apply
+A functor you can ap values into.
+
+Helps teach functions how to work with your values.
+
+#+BEGIN_SRC
+ap :: Apply f => f (a -> b) ~> f a -> f b
+#+END_SRC
+
+** Applicative
+An Apply with an of method.
+#+BEGIN_SRC
+of :: Applicative f => a -> f a
+#+END_SRC
+
+** Chain
+A functor that can be flatmapped
+#+BEGIN_SRC
+chain :: Chain m => m a ~> (a -> m b) -> m b
+#+END_SRC
+ 
+* Some libraries
 - Ramda :: A practical functional library for JavaScript programmers
 - Sanctuary :: A refuge from unsafe JavaScript
-- Fluture :: 🦋FantasyLand compliant (monadic) alternative to Promises
+- Fluture🦋 :: FantasyLand compliant (monadic) alternative to Promises
 - Flyd :: Monadic Reactive Streams
 - data.maybe :: Maybe implementation
 
-* Ramda
-Ramda aims to be your functional toolbelt in javascript.
-
-1. All functions are curried by default (no monkey butts)
-2. All functions can dispatch to fantasy-land methods given correct input
-3. Has a lens implementation
-
-#+BEGIN_SRC javascript
-import {pipe, map, multiply, chain} from 'ramda'
-
-pipe(
-  map(multiply(2)),
-  chain(num => [num, num / 2])
-)([1,2,3])
-#+END_SRC
-
-** The problem
-It doesn't go far enough as a toolbelt.
-
-#+BEGIN_SRC javascript
-import {find, propEq} from 'ramda'
-find(propEq('name', 'Einar'), []) // null
-#+END_SRC
-
-Let's take a look at sanctuary
-
-* Some actual code @ Activity Stream
-We have a css utility library that allows us to conditionally load a theme
-
-#+BEGIN_SRC javascript
-const themePath = fetchUserThemePath() 
-const basePath = Future.of('styles')
-const isGlobal = anyPass([startsWith('/'), startsWith('http')])
-const cssPath = Future.of(basePath => themePath => isGlobal(themePath)
-  ? themePath
-  : basePath + themePath
-)
-  .ap(basePath)
-  .ap(themePath)
-
-cssPath.fork(console.error, addCSSFilesToDocument);
-#+END_SRC
-
-** Now we need to make it dynamically update
-#+BEGIN_SRC javascript
-const themePath = stream('_default')
-const basePath = stream('styles')
-const isGlobal = anyPass([startsWith('/'), startsWith('http')])
-const cssPath = stream(basePath => themePath => isGlobal(themePath)
-  ? themePath
-  : basePath + themePath
-)
-  .ap(basePath)
-  .ap(themePath)
-
-fetchUserThemePath.fork(console.error, themePath)
-
-on(addCSSFilesToDocument, cssPath)
-#+END_SRC
-
-Just by changing the applicative implementation and some mild boilerplate we now have live updates.
