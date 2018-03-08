@@ -52,7 +52,7 @@ This enables a point free style of programming
 const domain_from_email = pipe(
   Maybe,
   map(pipe(toLower, split('@'))),
-  chain(head),
+  chain(last),
   map(pipe(
     replace(/\.{com,org}$/, ''),
     split('.'),
@@ -72,7 +72,7 @@ Or a dot chaining style
 #+BEGIN_SRC javascript
 const domain_from_email = email => Maybe(email)
   .map(x => x.toLowerCase().split('@'))
-  .chain(split => Maybe(split[0]))
+  .chain(split => Maybe(split[1]))
   .map(domain => domain
     .replace(/\.{com,org}/, '')
     .split('.')
