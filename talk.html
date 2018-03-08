@@ -7,9 +7,9 @@
 <style type="text/css">
 .underline { text-decoration: underline; }
 </style>
-<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/reveal.css"/>
 
-<link rel="stylesheet" href="http://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/moon.css" id="theme"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/reveal.js/3.0.0/css/theme/moon.css" id="theme"/>
 
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
@@ -18,7 +18,7 @@
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'http://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
+        link.href = 'https://cdn.jsdelivr.net/reveal.js/3.0.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
     }
 </script>
@@ -30,8 +30,8 @@
 </section>
 
 <section>
-<section id="slide-org3a9942c">
-<h2 id="org3a9942c">Who am I?</h2>
+<section id="slide-org93dcdb8">
+<h2 id="org93dcdb8">Who am I?</h2>
 <ul>
 <li>Lead Front End Developer @ Activity Stream</li>
 <li>Contributor to some OSS functional JS libraries</li>
@@ -41,8 +41,8 @@
 </section>
 </section>
 <section>
-<section id="slide-org7277618">
-<h2 id="org7277618">What is Functional Programming?</h2>
+<section id="slide-org5617213">
+<h2 id="org5617213">What is Functional Programming?</h2>
 <p>
 The radical notion that
 </p>
@@ -54,8 +54,8 @@ The radical notion that
 </ol>
 
 </section>
-<section id="slide-org53378dc">
-<h3 id="org53378dc">Functions are values</h3>
+<section id="slide-orgaa70a34">
+<h3 id="orgaa70a34">Functions are values</h3>
 <div class="org-src-container">
 
 <pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">doubleList</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">list</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
@@ -83,8 +83,8 @@ result = <span style="color: #4f97d7;">[</span><span style="color: #a45bad;">1</
 </pre>
 </div>
 </section>
-<section id="slide-orgebfdd59">
-<h3 id="orgebfdd59">The logical result of supplying too few arguments to a function is another function</h3>
+<section id="slide-orgad88e23">
+<h3 id="orgad88e23">The logical result of supplying too few arguments to a function is another function</h3>
 <div class="org-src-container">
 
 <pre  class="src src-javascript"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">multiply</span> = x =&gt; y =&gt; x * y
@@ -142,8 +142,8 @@ domain_from_email<span style="color: #4f97d7;">(</span><span style="color: #2d95
 </pre>
 </div>
 </section>
-<section id="slide-org19070da">
-<h3 id="org19070da">Functions can be composed together to create new functions</h3>
+<section id="slide-orga1d94eb">
+<h3 id="orga1d94eb">Functions can be composed together to create new functions</h3>
 <p>
 <code>pipe</code> does left to right composition
 </p>
@@ -175,15 +175,15 @@ Rule of thumb: Use <code>pipe</code> when you need to do multi line composition.
 </section>
 </section>
 <section>
-<section id="slide-org891a264">
-<h2 id="org891a264">Fantasy land</h2>
+<section id="slide-org3fa0ae2">
+<h2 id="org3fa0ae2">Fantasy land</h2>
 <p>
 A specification for the interoperability of algebraic datatypes in JavaScript
 <img src="./fantasy-land-deps.png" alt="fantasy-land-deps.png" />
 </p>
 </section>
-<section id="slide-org1360ea5">
-<h3 id="org1360ea5">How it came about</h3>
+<section id="slide-org7d93041">
+<h3 id="org7d93041">How it came about</h3>
 <ol>
 <li class="fragment appear">Promises</li>
 <li class="fragment appear">FP programmers</li>
@@ -191,8 +191,8 @@ A specification for the interoperability of algebraic datatypes in JavaScript
 
 </ol>
 </section>
-<section id="slide-org98b337a">
-<h3 id="org98b337a">Yeah but why?</h3>
+<section id="slide-org78b706d">
+<h3 id="org78b706d">Yeah but why?</h3>
 <ol>
 <li>Everything has the same interface (Futures, Streams, Lists, Maybe, Either, e.t.c.)</li>
 <li>Same interface for synchronous and asynchronous values</li>
@@ -203,18 +203,18 @@ A specification for the interoperability of algebraic datatypes in JavaScript
 </section>
 </section>
 <section>
-<section id="slide-org60e6b03">
-<h2 id="org60e6b03">Demo Time: Implementing the identity monad</h2>
+<section id="slide-org14d5c5e">
+<h2 id="org14d5c5e">Demo Time: Implementing the identity monad</h2>
 </section>
 </section>
 <section>
-<section id="slide-orgd37e87e">
-<h2 id="orgd37e87e">Monad</h2>
-<div class="outline-text-2" id="text-orgd37e87e">
+<section id="slide-orgb0af61a">
+<h2 id="orgb0af61a">Monad</h2>
+<div class="outline-text-2" id="text-orgb0af61a">
 </div>
 </section>
-<section id="slide-org9da1d1e">
-<h3 id="org9da1d1e">Functor</h3>
+<section id="slide-org70955be">
+<h3 id="org70955be">Functor</h3>
 <p>
 Anything you can map.
 </p>
@@ -223,8 +223,8 @@ map :: Functor f =&gt; f a ~&gt; (a -&gt; b) -&gt; f b
 </pre>
 
 </section>
-<section id="slide-org2a4c901">
-<h3 id="org2a4c901">Apply</h3>
+<section id="slide-org6682a64">
+<h3 id="org6682a64">Apply</h3>
 <p>
 A functor you can ap values into.
 </p>
@@ -238,8 +238,8 @@ ap :: Apply f =&gt; f (a -&gt; b) ~&gt; f a -&gt; f b
 </pre>
 
 </section>
-<section id="slide-org4e459ff">
-<h3 id="org4e459ff">Applicative</h3>
+<section id="slide-org34bf594">
+<h3 id="org34bf594">Applicative</h3>
 <p>
 An Apply with an of method.
 </p>
@@ -248,8 +248,8 @@ of :: Applicative f =&gt; a -&gt; f a
 </pre>
 
 </section>
-<section id="slide-orgbdca6c9">
-<h3 id="orgbdca6c9">Chain</h3>
+<section id="slide-org927e437">
+<h3 id="org927e437">Chain</h3>
 <p>
 A functor that can be flatmapped
 </p>
@@ -260,8 +260,8 @@ chain :: Chain m =&gt; m a ~&gt; (a -&gt; m b) -&gt; m b
 </section>
 </section>
 <section>
-<section id="slide-org6ae406c">
-<h2 id="org6ae406c">Some libraries</h2>
+<section id="slide-org14a9478">
+<h2 id="org14a9478">Some libraries</h2>
 <dl>
 <dt>Ramda</dt><dd>A practical functional library for JavaScript programmers</dd>
 <dt>Sanctuary</dt><dd>A refuge from unsafe JavaScript</dd>
@@ -274,8 +274,8 @@ chain :: Chain m =&gt; m a ~&gt; (a -&gt; m b) -&gt; m b
 </section>
 </div>
 </div>
-<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
-<script src="http://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/reveal.js/3.0.0/js/reveal.js"></script>
 
 <script>
 // Full list of configuration options available here:
@@ -302,11 +302,11 @@ multiplex: {
 
 // Optional libraries used to extend on reveal.js
 dependencies: [
- { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
- { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
- { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
- { src: 'http://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/reveal.js/3.0.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
 });
 </script>
 </body>

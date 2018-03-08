@@ -1,6 +1,6 @@
 #+TITLE: Fantasy Land: FP in JavaScript
 #+AUTHOR: Einar Norðfjörð
-#+REVEAL_ROOT: http://cdn.jsdelivr.net/reveal.js/3.0.0/
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/reveal.js/3.0.0/
 #+OPTIONS: toc:nil
 #+OPTIONS: num:nil
 #+OPTIONS: timestamp:nil
